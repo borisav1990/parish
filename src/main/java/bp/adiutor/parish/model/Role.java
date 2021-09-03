@@ -10,14 +10,10 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonIgnoreType;
-
 @Entity
 @Table(name = "roles")
-@JsonIgnoreType
 public class Role {
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "role_id")
@@ -27,7 +23,6 @@ public class Role {
 	private String name;
 
 	@ManyToMany(mappedBy = "roles")
-	@JsonIgnore
 	private List<User> users;
 
 	

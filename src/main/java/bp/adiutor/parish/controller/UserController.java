@@ -1,5 +1,6 @@
 package bp.adiutor.parish.controller;
 
+import java.util.List;
 import java.util.Locale;
 
 
@@ -20,9 +21,11 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import bp.adiutor.parish.ParishApplication;
+import bp.adiutor.parish.model.Household;
 import bp.adiutor.parish.model.Rectory;
 import bp.adiutor.parish.model.User;
 import bp.adiutor.parish.repository.UserRepository;
+import bp.adiutor.parish.service.HouseholdService;
 import bp.adiutor.parish.service.RectoryService;
 import bp.adiutor.parish.service.UserService;
 
@@ -41,6 +44,9 @@ public class UserController {
 	@Autowired
 	private RectoryService rectoryService;
 	
+	@Autowired
+	private HouseholdService householdService;
+	
 	@RequestMapping(value="/boro", method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody
 	
@@ -48,11 +54,26 @@ public class UserController {
 		
 		ParishApplication.logger.info("{}", messageSource.getMessage("l2", new Object[] {"Neka poruka"}, Locale.ENGLISH));
 		
-		//User user = userService.getLoggedUser();
-		//System.out.println(user.getChurch().getEparchy().getName());
-		System.out.println("------------------");
-		Rectory rectory = rectoryService.getRectoryByUser();
-		System.out.println("-----" + rectory.getRectoryName());
+		
+		
+		List<Household> h = householdService.getHouseholdByRectory();
+		for (Household household : h) {
+			System.out.println("------------------");
+			System.out.println("id: " + household.getHouseholdId());
+			
+		}
+		Household h2 = householdService.getHouseholdByIdAndRectory(1, rectoryService.getRectoryByUser());
+		System.out.println("id-2: " + h2.getHouseholdId());
+		
+		List<Household> h3 = householdService.getHouseholdByPatron(1);
+		for (Household hous : h3) {
+			System.out.println("------------------");
+			System.out.println("ppp: " + hous.getPatrons().get(0).getName());
+			
+		}
+		System.out.println("id-2: " + h2.getHouseholdId());
+		
+		
          
 		
 		return "Borisav";

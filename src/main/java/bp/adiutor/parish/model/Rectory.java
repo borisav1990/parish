@@ -1,6 +1,7 @@
 package bp.adiutor.parish.model;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -29,6 +31,12 @@ public class Rectory {
 	@JoinColumn(name="user_id")
 	private User user;
 	
+	@OneToMany(mappedBy="rectory")
+	private List<Household> households;
+	
+	@OneToMany(mappedBy="rectory")
+	private List<Street> streets;
+	
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="created_at")
 	private Date createdAt;
@@ -41,16 +49,19 @@ public class Rectory {
 		super();
 	}
 
-	public Rectory(Integer rectoryId, String rectoryName, User user, Date createdAt, Date updatedAt) {
+	public Rectory(Integer rectoryId, String rectoryName, User user, List<Household> households, List<Street> streets,
+			Date createdAt, Date updatedAt) {
 		super();
 		this.rectoryId = rectoryId;
 		this.rectoryName = rectoryName;
 		this.user = user;
+		this.households = households;
+		this.streets = streets;
 		this.createdAt = createdAt;
 		this.updatedAt = updatedAt;
 	}
 
-	public Integer getRectoryId() {
+    public Integer getRectoryId() {
 		return rectoryId;
 	}
 
@@ -72,6 +83,22 @@ public class Rectory {
 
 	public void setUser(User user) {
 		this.user = user;
+	}
+	
+	public List<Household> getHouseholds() {
+		return households;
+	}
+
+	public void setHouseholds(List<Household> households) {
+		this.households = households;
+	}
+	
+	public List<Street> getStreets() {
+		return streets;
+	}
+
+	public void setStreets(List<Street> streets) {
+		this.streets = streets;
 	}
 
 	public Date getCreatedAt() {
