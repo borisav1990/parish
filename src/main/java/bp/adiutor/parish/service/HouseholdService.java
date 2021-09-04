@@ -21,6 +21,8 @@ public interface HouseholdService {
 	
 	List<Household> getHouseholdByEaster(boolean easter);
 	
+	List<Household> getHouseholdByPriority(Integer priorityId);
+	
 	Household createHousehold(Household household);
 	
 	Household updateHousehold(Household household);

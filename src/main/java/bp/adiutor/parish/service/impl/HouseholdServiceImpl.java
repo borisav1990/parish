@@ -108,6 +108,19 @@ public class HouseholdServiceImpl implements HouseholdService {
 			}
 		 return householdsEaster;
 	}
+	
+	@Override
+	public List<Household> getHouseholdByPriority(Integer priorityId) {
+		logger.info("Will get for: getHouseholdByPriority(priorityId:{})",priorityId);
+		List<Household> householdsPriority = new ArrayList<>();
+		List<Household> householdsRectory = getHouseholdByRectory();
+		for (Household household : householdsRectory) {
+			if(household.getPriority().getPriorityId() == priorityId) {
+				householdsPriority.add(household);
+				}
+			}
+		 return householdsPriority;
+	}
 
 	@Override
 	public Household createHousehold(Household household) {
@@ -124,13 +137,11 @@ public class HouseholdServiceImpl implements HouseholdService {
 	@Override
 	public void deleteById(Integer id) {
 		logger.info("Will delete for: deleteById({})", id);
-		List<Household> householdsRectory = getHouseholdByRectory();
-		for (Household household : householdsRectory) {
-			if(household.getHouseholdId() == id) {
+		Rectory r = rectoryService.getRectoryByUser();
+		Household h = householdRepository.findById(id).get();
+		if(r.getRectoryId() == h.getRectory().getRectoryId()) {
 				householdRepository.deleteById(id);
-			}
 		}
-		
 	}
 
 }

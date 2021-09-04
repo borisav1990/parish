@@ -36,10 +36,17 @@ public class Household {
 	private Rectory rectory;
 	
 	@OneToMany(mappedBy="household")
+	private List<Call> calls;
+	
+	@OneToMany(mappedBy="household")
 	private List<Doing> doings;
 
 	@OneToMany(mappedBy="household")
 	private List<Person> persons;
+	
+	@ManyToOne
+	@JoinColumn(name="priority_id")
+	private Priority priority;
 	
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="created_at")
@@ -56,11 +63,9 @@ public class Household {
 	public Household() {
 	}
 	
-	
-	
 	public Household(Integer householdId, String doorway, String floor, String apartment, Street street,
-			List<Patron> patrons, Rectory rectory, List<Doing> doings, List<Person> persons, Date createdAt,
-			Date updatedAt, boolean easter) {
+			List<Patron> patrons, Rectory rectory, List<Call> calls, List<Doing> doings, List<Person> persons,
+			Priority priority, Date createdAt, Date updatedAt, boolean easter) {
 		super();
 		this.householdId = householdId;
 		this.doorway = doorway;
@@ -69,8 +74,10 @@ public class Household {
 		this.street = street;
 		this.patrons = patrons;
 		this.rectory = rectory;
+		this.calls = calls;
 		this.doings = doings;
 		this.persons = persons;
+		this.priority = priority;
 		this.createdAt = createdAt;
 		this.updatedAt = updatedAt;
 		this.easter = easter;
@@ -135,9 +142,7 @@ public class Household {
 		this.patrons = patrons;
 	}
 
-
-
-	public Rectory getRectory() {
+    public Rectory getRectory() {
 		return rectory;
 	}
 
@@ -155,12 +160,26 @@ public class Household {
 	public void setDoings(List<Doing> doings) {
 		this.doings = doings;
 	}
+	
+	public List<Call> getCalls() {
+		return calls;
+	}
 
+	public void setCalls(List<Call> calls) {
+		this.calls = calls;
+	}
 
 	public List<Person> getPersons() {
 		return persons;
 	}
+	
+	public Priority getPriority() {
+		return priority;
+	}
 
+	public void setPriority(Priority priority) {
+		this.priority = priority;
+	}
 
 	public void setPersons(List<Person> persons) {
 		this.persons = persons;

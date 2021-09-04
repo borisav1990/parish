@@ -1,8 +1,6 @@
 package bp.adiutor.parish.service;
 
 import java.util.List;
-
-import bp.adiutor.parish.model.Rectory;
 import bp.adiutor.parish.model.Street;
 
 public interface StreetService {
