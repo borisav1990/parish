@@ -1,0 +1,59 @@
+
+<div class="modal fade" id="addRowModal" tabindex="-1" role="dialog"
+	aria-hidden="true">
+
+	<div class="modal-dialog" role="document">
+		<form th:object="${street}" th:id="addStreet" th:method="post">
+			<div class="modal-content">
+				<div class="modal-header no-bd">
+					<h5 class="modal-title">
+						<span class="fw-mediumbold">Унос/Измена улице</span> <span
+							class="fw-light"></span>
+					</h5>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<p class="small">Уноси или измени улице на парохији.</p>
+
+					<div class="row">
+						<div class="col-sm-12">
+							<input type="hidden" th:value="${street.streetId}"
+								class="form-control" th:id="streetId" th:field="*{streetId}">
+						</div>
+						<div class="col-sm-12">
+							<div class="form-group">
+								<label for="streetName">Назив улице:</label> <input type="text"
+									class="form-control" th:id="streetName" th:name="streetName"
+									placeholder="Унесите назив улице...">
+							</div>
+						</div>
+						<div class="col-sm-12">
+
+							<div class="form-group">
+								<label for="streetCity">Место:</label> 
+								<select class="form-control form-control"  th:name="city" th:id="streetCity" th:field="*{city}">
+									<option value="">--- Изаберите место ---</option>
+									<option th:each="city : ${cities}"
+										th:text="${city.name}" th:value="${city.cityId}"  ></option>
+								</select>
+							</div>
+
+						</div>
+					</div>
+
+				</div>
+				<div class="modal-footer no-bd">
+					<button type="submit" class="btn btn-primary">Сними</button>
+					<button type="button" class="btn btn-danger" data-dismiss="modal">Затвори</button>
+				</div>
+			</div>
+		</form>
+	</div>
+
+</div>
+
+
+

@@ -1,12 +1,22 @@
 package bp.adiutor.parish.model;
 
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
 @Entity
 @Table(name="city")
-public class City{
+public class City implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
@@ -17,6 +27,7 @@ public class City{
 	private String name;
 
 	@OneToMany(mappedBy="city")
+	@JsonIgnore
 	private List<Street> streets;
     
 	@Temporal(TemporalType.TIMESTAMP)
@@ -29,6 +40,8 @@ public class City{
 
 	public City() {
 	}
+	
+	
 	public City(Integer cityId, String name, List<Street> streets, Date createdAt, Date updatedAt) {
 		super();
 		this.cityId = cityId;

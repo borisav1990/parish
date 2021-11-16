@@ -1,0 +1,55 @@
+<div class="input-group-append">
+	<button class="btn btn-primary btn-border dropdown-toggle"
+		type="button" data-toggle="dropdown" aria-haspopup="true"
+		aria-expanded="false"
+		th:text="${household.street.name} +' ' + ${household.doorway}"></button>
+
+	<div class="dropdown-menu">
+		<div class="user-box">
+			<div class="u-text">
+				<h4 style="font-weight: bold;">Адреса</h4>
+
+			</div>
+		</div>
+		<div role="separator" class="dropdown-divider"></div>
+		<div class="user-box">
+			<div class="u-text">
+				<p class="text-muted">Место:</p>
+				<h4 th:text="${household.street.city.name}"></h4>
+
+
+			</div>
+			<div class="u-text">
+
+				<p class="text-muted">Улица:</p>
+				<h4 th:text="${household.street.name}"></h4>
+
+			</div>
+			<div class="u-text">
+
+				<p class="text-muted">Број:</p>
+				<h4 th:text="${household.doorway}"></h4>
+
+			</div>
+			<div class="u-text">
+
+				<p class="text-muted">Спрат:</p>
+				<h4 th:text="${household.floor}"></h4>
+
+			</div>
+			<div class="u-text">
+
+				<p class="text-muted">Стан:</p>
+				<h4 th:text="${household.apartment}"></h4>
+
+			</div>
+			<button type="button" data-toggle="tooltip" title="Измени адресу"
+				class="btn btn-link btn-primary" data-original-title="Измени адресу">
+				<i class="fa fa-edit"></i>
+			</button>
+		</div>
+
+
+		<div role="separator" class="dropdown-divider"></div>
+		</div>
+</div>

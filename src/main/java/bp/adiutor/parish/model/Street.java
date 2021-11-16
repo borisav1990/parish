@@ -1,37 +1,56 @@
 package bp.adiutor.parish.model;
 
 import javax.persistence.*;
+
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
 @Entity
 @Table(name="street")
-public class Street{
+public class Street implements Serializable{
     
+	private static final long serialVersionUID = 1L;
+
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="street_id")
 	private Integer streetId;
 	
 	@Column(name="name")
 	private String name;
 	
+	
 	@ManyToOne
 	@JoinColumn(name="city_id")
 	private City city;
 	
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="rectory_id")
 	private Rectory rectory;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy="street")
 	private List<Household> households;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name="created_at")
+	@CreationTimestamp
+	@Column(name="created_at" , nullable = false, updatable = false)
 	private Date createdAt;
 
 	@Temporal(TemporalType.TIMESTAMP)
+	@UpdateTimestamp
 	@Column(name="updated_at")
 	private Date updatedAt;
 

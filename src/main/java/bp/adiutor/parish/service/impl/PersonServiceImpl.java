@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 import bp.adiutor.parish.model.Household;
 import bp.adiutor.parish.model.Person;
-import bp.adiutor.parish.model.Rectory;
 import bp.adiutor.parish.repository.PersonRepository;
 import bp.adiutor.parish.service.HouseholdService;
 import bp.adiutor.parish.service.PersonService;
@@ -59,8 +58,8 @@ public class PersonServiceImpl implements PersonService {
 	}
 
 	@Override
-	public void deleteById(Integer id, Integer householdId, Rectory rectory) {
-		Household h = householdService.getHouseholdByIdAndRectory(householdId, rectory);
+	public void deleteById(Integer id, Integer householdId) {
+		Household h = householdService.getHouseholdByIdAndRectory(householdId);
 		List<Person> p = h.getPersons();
 		for (Person person : p) {
 			if(person.getPersonId() == id);

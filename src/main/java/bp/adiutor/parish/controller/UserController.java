@@ -11,6 +11,7 @@ import org.springframework.context.MessageSource;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -29,7 +30,7 @@ import bp.adiutor.parish.service.HouseholdService;
 import bp.adiutor.parish.service.RectoryService;
 import bp.adiutor.parish.service.UserService;
 
-@RestController("/")
+@Controller("/")
 
 public class UserController {
 	
@@ -47,36 +48,17 @@ public class UserController {
 	@Autowired
 	private HouseholdService householdService;
 	
-	@RequestMapping(value="/boro", method = RequestMethod.GET, produces = "application/json")
-	@ResponseBody
-	
+	@RequestMapping(value="/boro")
 	public String boro(Locale locale)  {
 		
-		ParishApplication.logger.info("{}", messageSource.getMessage("l2", new Object[] {"Neka poruka"}, Locale.ENGLISH));
+		//ParishApplication.logger.info("{}", messageSource.getMessage("l2", new Object[] {"Neka poruka"}, Locale.ENGLISH));
 		
 		
-		
-		List<Household> h = householdService.getHouseholdByRectory();
-		for (Household household : h) {
-			System.out.println("------------------");
-			System.out.println("id: " + household.getHouseholdId());
-			
-		}
-		Household h2 = householdService.getHouseholdByIdAndRectory(1, rectoryService.getRectoryByUser());
-		System.out.println("id-2: " + h2.getHouseholdId());
-		
-		List<Household> h3 = householdService.getHouseholdByPatron(1);
-		for (Household hous : h3) {
-			System.out.println("------------------");
-			System.out.println("ppp: " + hous.getPatrons().get(0).getName());
-			
-		}
-		System.out.println("id-2: " + h2.getHouseholdId());
 		
 		
          
 		
-		return "Borisav";
+		return "index";
 		
 		
 		

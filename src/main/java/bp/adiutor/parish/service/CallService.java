@@ -3,6 +3,7 @@ package bp.adiutor.parish.service;
 import java.util.List;
 
 import bp.adiutor.parish.model.Call;
+import bp.adiutor.parish.model.Household;
 
 public interface CallService {
 	
@@ -14,6 +15,8 @@ public interface CallService {
 	
 	Call updateCall(Call call);
 	
-	void deleteById(Integer id); 
+	void deleteById(Integer id);
+
+	List<Call> getAllCallByHousehold(Household household); 
 
 }

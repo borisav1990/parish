@@ -11,10 +11,10 @@ import org.springframework.stereotype.Service;
 
 import bp.adiutor.parish.model.Call;
 import bp.adiutor.parish.model.Household;
-import bp.adiutor.parish.model.Rectory;
 import bp.adiutor.parish.repository.CallRepository;
 import bp.adiutor.parish.service.CallService;
-import bp.adiutor.parish.service.RectoryService;
+import bp.adiutor.parish.service.HouseholdService;
+
 
 @Service
 @Transactional
@@ -26,46 +26,54 @@ public class CallServiceImpl implements CallService {
 	private CallRepository callRepository;
 	
 	@Autowired
-	private RectoryService rectoryService;
-
+	private HouseholdService householdService;
+	
 	@Override
-	public List<Call> getAllCall() {
+	public List<Call> getAllCallByHousehold(Household household) {
 		logger.info("Will get for: getAllCall()");
-		return (List<Call>) callRepository.findAll();
+		return callRepository.findAllByHousehold(household);
 	}
 
 	@Override
 	public Call getCallById(Integer id) {
-		logger.info("Will get for: getCallById({})", id);
-		return callRepository.findById(id).get();
+		Call call = callRepository.findById(id).get();
+		Household hh = householdService.getHouseholdByIdAndRectory(call.getHousehold().getHouseholdId());
+		if(hh.getCalls().contains(call)){
+			logger.info("Will get for: getCallById({})", id);
+			return call;
+		}
+		return null;
 	}
 
 	@Override
 	public Call createCall(Call call) {
-		logger.info("Will create: createCall()");
-		return callRepository.save(call);
+		Household hh = householdService.getHouseholdByIdAndRectory(call.getHousehold().getHouseholdId());
+		if(hh != null){
+			logger.info("Will create: createCall()");
+			return callRepository.save(call);
+		}
+		return null;
 	}
 
 	@Override
 	public Call updateCall(Call call) {
-		logger.info("Will updated: updateCall()");
-		return callRepository.save(call);
+		Call c = getCallById(call.getCallId());
+		if(c != null) {
+			logger.info("Will updated: updateCall()");
+			return callRepository.save(c);
+			}
+		return null;
 	}
 
 	@Override
 	public void deleteById(Integer id) {
-		Rectory r = rectoryService.getRectoryByUser();
-		List<Household> h = r.getHouseholds();
-		for (Household household : h) {
-			List<Call> c = household.getCalls();
-			for (Call call : c) {
-				if(call.getCallId() == id) {
-					logger.info("Will delete for: deleteById({})", id);
-					callRepository.deleteById(id);
-					}
-				}
-			}
-		
+		Call c =  getCallById(id);
+		callRepository.delete(c);
+		}
+
+	@Override
+	public List<Call> getAllCall() {
+		return (List<Call>) callRepository.findAll();
 		}
 
 }

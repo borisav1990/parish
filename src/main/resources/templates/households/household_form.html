@@ -1,0 +1,133 @@
+<div class="modal fade bd-example-modal-lg" id="addHousehold"
+	tabindex="-1" role="dialog" aria-hidden="true">
+
+	<div class="modal-dialog modal-lg" role="document">
+		<form th:object="${household}" th:id="formHousehold" th:method="post">
+			<div class="modal-content">
+				<div class="modal-header no-bd">
+					<h5 class="modal-title">
+						<span class="fw-mediumbold">Унос/Измена домаћинства</span> <span
+							class="fw-light"></span>
+					</h5>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<p class="small">Уноси или измени домаћинства на парохији.</p>
+                    <hr class="hr-text">
+					<div class="row">
+						<div class="col-sm-12">
+							<input type="hidden" th:value="${household.householdId}"
+								class="form-control" th:id="householdId"
+								th:field="*{householdId}">
+						</div>
+						<div class="col-sm-12">
+							<div class="form-group">
+								<label for="streetName">Презиме:</label> <input type="text"
+									class="form-control" th:id="familyName" th:name="familyName"
+									placeholder="Унесите презиме домаћинства...">
+							</div>
+						</div>
+					</div>
+					<hr class="hr-text">
+					<div class="row">
+						<div class="col-sm-6 col-md-4">
+							<div class="form-group">
+								<label for="street">Улица:</label> <select
+									class="form-control form-control" th:name="street"
+									th:id="street" th:field="*{street}">
+									<option value="">Изаберите улицу</option>
+									<option th:each="street : ${streetsList}"
+										th:text="${street.name}" th:value="${street.streetId}"></option>
+								</select>
+							</div>
+
+						</div>
+						<div class="col-sm-6 col-md-3">
+
+							<div class="form-group">
+								<label for="doorway">Број улаза:</label> <input type="text"
+									class="form-control" th:id="doorway" th:name="doorway"
+									th:field="*{doorway}" placeholder="...">
+
+							</div>
+
+						</div>
+						<div class="col-sm-6 col-md-2">
+							<div class="form-group">
+								<label for="floor">Спрат:</label> <input type="text"
+									class="form-control" th:id="floor" th:name="floor"
+									th:field="*{floor}" placeholder="...">
+							</div>
+						</div>
+						<div class="col-sm-6 col-md-3">
+							<div class="form-group">
+								<label for="floor">Стан:</label> <input type="text"
+									class="form-control" th:id="apartment" th:name="apartment"
+									th:field="*{apartment}" placeholder="...">
+							</div>
+						</div>
+
+					</div>
+					
+					<hr>
+					<div class="row">
+					<div class="col-sm-6 col-md-4">
+							<div class="form-group">
+								<label for="patrons">Крсна слава:</label>
+								
+								<div class="button-group">
+									<button type="button"
+										class="btn btn-default btn-border dropdown-toggle patronSelBtn"
+										data-toggle="dropdown" aria-haspopup="true"
+										aria-expanded="false" >Изаберите славе</button>
+									<ul class="dropdown-menu"
+										style="max-height: 280px; overflow-y: auto;">
+										<li th:each="patron : ${patrons}">
+										<a href="#" class="dropdown-item" th:attr="patron_id=${patron.patronId}, patron_name=${patron.name}" tabIndex="-1"> 
+										   <input class="form-check-input" type="checkbox" th:text="${patron.name}"/>
+										</a>
+										</li>
+
+
+									</ul>
+								</div>
+
+							</div>
+						</div>
+						
+						<div class="col-sm-6 col-md-4">
+							<div class="form-group">
+							  <label >Васкрња водица: </label>
+							  <div class="form-check">
+							      <label class="form-check-label">
+							          <input class="form-check-input" type="checkbox" value="">
+									  <span class="form-check-sign">Освећење васкршње водице.</span>
+								  </label>
+							 </div>
+							</div>
+						</div>
+					
+					
+					</div>
+					<hr>
+
+
+
+
+				</div>
+				<div class="modal-footer no-bd">
+					<button type="submit" class="btn btn-primary">Сними</button>
+					<button type="button" class="btn btn-danger" data-dismiss="modal">Затвори</button>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+
+
+
+
+

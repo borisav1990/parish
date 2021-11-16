@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import bp.adiutor.parish.model.Rectory;
 import bp.adiutor.parish.model.Street;
 import bp.adiutor.parish.repository.StreetRepository;
+import bp.adiutor.parish.service.CityService;
 import bp.adiutor.parish.service.RectoryService;
 import bp.adiutor.parish.service.StreetService;
 
@@ -27,6 +28,9 @@ public class StreetServiceImpl implements StreetService {
 	
 	@Autowired
 	private RectoryService rectoryService;
+	
+	@Autowired
+	private CityService cityService;
 	
 
 	@Override
@@ -50,8 +54,11 @@ public class StreetServiceImpl implements StreetService {
 
 	@Override
 	public Street createStreet(Street street) {
-		logger.info("Will create: createStreet for streetID={}", street.getStreetId());
-		return streetRepository.save(street);
+		logger.info("Will create: createStreet for NAME={}", street.getName());
+		street.setRectory(rectoryService.getRectoryByUser());
+		Street saved = streetRepository.save(street);
+		saved.setCity(cityService.getCityById(saved.getCity().getCityId()));
+		return saved ;
 		
 	}
 
@@ -64,7 +71,7 @@ public class StreetServiceImpl implements StreetService {
 	@Override
 	public void deleteById(Integer id) {
 		logger.info("Will delete for Street: deleteById({})", id);
-		
+		streetRepository.deleteById(id);
 	}
 
 }

@@ -18,6 +18,6 @@ public interface PersonService {
 	
 	Person updatePerson(Person person);
 	
-	void deleteById(Integer id, Integer householdId, Rectory rectory);
+	void deleteById(Integer id, Integer householdId);
 
 }

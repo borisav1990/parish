@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<!-- HEAD -->
+<th:block th:replace="partials/head/_head.html"></th:block>
+
+<body>
+
+	<div class="wrapper">
+	
+
+		<!-- MAIN HEADER -->
+		<th:block th:replace="partials/header/_header.html"></th:block>
+
+		<!-- SIDEBAR -->
+		<th:block th:replace="partials/sidebar/_sidebar.html"></th:block>
+		
+
+		<div class="main-panel">
+
+			<!-- STEETS DATATABLE AND FORM -->
+			<div class="content">
+				<th:block th:replace="streets/street_datatable.html"></th:block>
+				<th:block th:replace="streets/street_form.html"></th:block>
+			</div>
+			<!-- FOOTER -->
+			<th:block th:replace="partials/footer/_footer.html"></th:block>
+
+		</div>
+	</div>
+	<!-- SCRIPTs -->
+	<th:block th:replace="partials/footer/_footer_js.html"></th:block>
+</body>
+</html>

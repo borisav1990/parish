@@ -5,9 +5,7 @@ import java.util.Optional;
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.transaction.annotation.Transactional;
-
 import bp.adiutor.parish.model.Household;
-import bp.adiutor.parish.model.Patron;
 import bp.adiutor.parish.model.Rectory;
 import bp.adiutor.parish.model.Street;
 

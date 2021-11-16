@@ -51,9 +51,9 @@ public class HouseholdServiceImpl implements HouseholdService {
 	}
 
 	@Override
-	public Household getHouseholdByIdAndRectory(Integer householdId, Rectory rectory) {
-		logger.info("Will get for: getHouseholdByIdAndRectory(householdId:{}, rectoryId:{})", householdId, rectory.getRectoryId());
+	public Household getHouseholdByIdAndRectory(Integer householdId) {
 		Rectory r = rectoryService.getRectoryByUser();
+		logger.info("Will get for: getHouseholdByIdAndRectory(householdId:{}, rectoryId:{})", householdId, r.getRectoryId());
 		return householdRepository.findByHouseholdIdAndRectory(householdId, r).get();
 	}
 
